@@ -7,17 +7,21 @@
       <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
       <link rel="stylesheet" href="https://unpkg.com/picnic">
       <style>
+        body {
+            background: url(record-sleeve.jpg);
+            background-size: cover;
+        }
         div.listnerStatsWidget {
-            width: 300px;
-            height: 300px;
+            width: 360px;
+            height: 360px;
             position: absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
             margin: 0;
+            padding: 24px;
         }
-
         .inner {
             background: url('8K-circle-text.png') orange;
             background-size: cover;
@@ -31,10 +35,10 @@
             position: relative;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2vw;
+            font-size: 18px;
         }
-        #noOfListeners {
-            font-size: 4vw;
+        span.number {
+            font-size: 24px;
         }
       </style>
     </head>
@@ -54,7 +58,7 @@
                         let source = data.icestats.source;
                         document.getElementById("noOfListeners").innerHTML = `
                             <p>There are currently<br>
-                            ${source.listeners}
+                            <span class="number">${source.listeners}</span>
                             <br>
                             listeners</p>
                             `
