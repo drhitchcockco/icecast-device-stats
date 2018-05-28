@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>8K Listener Stats Widget</title>
+      <link href="https://fonts.googleapis.com/css?family=Viga" rel="stylesheet"> 
+      <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+      <link rel="stylesheet" href="https://unpkg.com/picnic">
+      <style>
+        div.listnerStatsWidget {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+        }
+
+        .inner {
+            background: url('8K-circle-text.png') orange;
+            background-size: cover;
+            color: hsla(28, 100%, 20%, 1.0);
+            font-family: 'Viga', sans-serif;
+            text-align: center;
+            border-radius: 50%;
+            height: 100%;
+        }
+        .inner p {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2vw;
+        }
+        #noOfListeners {
+            font-size: 4vw;
+        }
+      </style>
+    </head>
+    <body>
+        <div class="listnerStatsWidget">
+            <div id="noOfListeners" class="inner">
+            </div>
+        </div>
+
+        <script>
+            const endpoint = 'http://stream.8k.nz:8000/status-json.xsl';
+
+            function getStreamStats() {
+                fetch(endpoint)
+                    .then(blob => blob.json())
+                    .then(data => {
+                        let source = data.icestats.source;
+                        document.getElementById("noOfListeners").innerHTML = `
+                            <p>There are currently<br>
+                            ${source.listeners}
+                            <br>
+                            listeners</p>
+                            `
+                    });
+            }
+
+            getStreamStats();
+            setInterval(getStreamStats, 88 * 1000);
+        </script>
+    </body>
+</html>
