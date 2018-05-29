@@ -40,6 +40,9 @@
         span.number {
             font-size: 24px;
         }
+        span.radio {
+            font-size: 24px;
+        }
       </style>
     </head>
     <body>
@@ -58,9 +61,10 @@
                         let source = data.icestats.source;
                         document.getElementById("noOfListeners").innerHTML = `
                             <p>There are currently<br>
-                            <span class="number">${source.listeners}</span>
-                            <br>
-                            listeners</p>
+                            <span class="number">${source.listeners} </span>
+                            <span class="radio">📻</span><br>
+                            connected.
+                            </p>
                             `
                     });
             }
