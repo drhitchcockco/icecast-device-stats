@@ -10,17 +10,16 @@
         body {
             background: url(record-sleeve.jpg);
             background-size: cover;
+            height: 100%;
         }
         div.listnerStatsWidget {
             width: 360px;
             height: 360px;
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: 0;
             padding: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .inner {
             background: url('8K-circle-text.png') orange;
@@ -59,18 +58,29 @@
                     .then(blob => blob.json())
                     .then(data => {
                         let source = data.icestats.source;
-                        document.getElementById("noOfListeners").innerHTML = `
-                            <p>There are currently<br>
-                            <span class="number">${source.listeners} </span>
-                            <span class="radio">📻</span><br>
-                            connected.
-                            </p>
-                            `
+                        let numbers = source.listeners;
+                        if (numbers = 0 || numbers >= 2) {
+                            document.getElementById("noOfListeners").innerHTML = `
+                                <p>There are currently<br>
+                                <span class="number">${source.listeners} </span>
+                                <span class="radio">📻</span><br>
+                                connected.
+                                </p>
+                                `
+                        } else {
+                            document.getElementById("noOfListeners").innerHTML = `
+                                <p>There is currently<br>
+                                <span class="number">${source.listeners} </span>
+                                <span class="radio">📻</span><br>
+                                connected.
+                                </p>
+                                `
+                        }
                     });
             }
 
             getStreamStats();
-            setInterval(getStreamStats, 88 * 1000);
+            setInterval(getStreamStats, 44 * 1000);
         </script>
     </body>
 </html>
