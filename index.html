@@ -65,40 +65,46 @@
     <body>
         <div class="listnerStatsWidget">
             <div id="noOfListeners" class="inner">
+              <p><span class="radio">📻</span></p>
             </div>
         </div>
 
         <script>
             const endpoint = 'http://stream.8k.nz:8000/status-json.xsl';
-
-            function getStreamStats() {
-                fetch(endpoint)
-                    .then(blob => blob.json())
-                    .then(data => {
-                        let source = data.icestats.source;
-                        let numbers = source.listeners;
-                        if (numbers = 0 || numbers >= 2) {
-                            document.getElementById("noOfListeners").innerHTML = `
-                                <p>There are currently<br>
-                                <span class="number">${source.listeners} </span>
-                                <span class="radio">📻</span><br>
-                                connected.
-                                </p>
-                                `
-                        } else {
-                            document.getElementById("noOfListeners").innerHTML = `
-                                <p>There is currently<br>
-                                <span class="number">${source.listeners} </span>
-                                <span class="radio">📻</span><br>
-                                connected.
-                                </p>
-                                `
-                        }
-                    });
-            }
-
-            getStreamStats();
-            setInterval(getStreamStats, 44 * 1000);
+            function streamStats() {
+              function getStreamStats() {
+                    fetch(endpoint)
+                        .then(blob => blob.json())
+                        .then(data => {
+                            const { source } = data.icestats
+                            // let source = data.icestats.source;
+                            let numbers = source.listeners;
+                            if (numbers = 0 || numbers >= 2) {
+                                document.getElementById("noOfListeners").innerHTML = `
+                                    <p>There are currently<br>
+                                    <span class="number">${source.listeners} </span>
+                                    <span class="radio">📻</span><br>
+                                    connected.
+                                    </p>
+                                    `
+                            } else {
+                                document.getElementById("noOfListeners").innerHTML = `
+                                    <p>There is currently<br>
+                                    <span class="number">${source.listeners} </span>
+                                    <span class="radio">📻</span><br>
+                                    connected.
+                                    </p>
+                                    `
+                            }
+                      })
+                }
+              getStreamStats();
+              setTimeout(function repeat() {
+                  getStreamStats();
+                  setTimeout(repeat, 44000);
+              }, 44000);
+            };
+            streamStats();
         </script>
     </body>
 </html>
