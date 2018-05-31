@@ -77,9 +77,8 @@
                         .then(blob => blob.json())
                         .then(data => {
                             const { source } = data.icestats
-                            // let source = data.icestats.source;
                             let numbers = source.listeners;
-                            if (numbers = 0 || numbers >= 2) {
+                            if (numbers === 0 || numbers >= 2) {
                                 document.getElementById("noOfListeners").innerHTML = `
                                     <p>There are currently<br>
                                     <span class="number">${source.listeners} </span>
